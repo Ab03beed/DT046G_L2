@@ -1,0 +1,3 @@
+D:/Uni/DT046G/DT046G-L2/cmake-build-debug/CMakeFiles/DT046G_L2.dir
+D:/Uni/DT046G/DT046G-L2/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Uni/DT046G/DT046G-L2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
