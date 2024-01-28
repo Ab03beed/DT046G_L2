@@ -12,7 +12,13 @@
 
 class sort {
 public:
-    void selection(size_t size);
+    void insertion(std::vector<int> &vec, size_t loopCount);
+    void selection(std::vector<int> &vec, size_t loopCount);
+    void quickSortRpivot(std::vector<int> &vec, size_t start, size_t end);
+
+
+    bool isSorted(std::vector<int> &vec);
+
 private:
     std::vector<int> generate;
 
