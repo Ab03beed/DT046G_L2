@@ -30,7 +30,6 @@ static void GenerateAscending(std::vector<int>& vec, size_t size){
 
 }
 static void GenerateDescending(std::vector<int>& vec, size_t size){
-
     for(int i=size; i>0; i--){
         vec.push_back(i);
     }
@@ -43,7 +42,7 @@ static void GenerateRandom(std::vector<int>& vec, size_t size){
     int num = 0;
 
     for(int i=0; i<size; i++){
-        num = rand();
+        num = rand() % 100;
         vec.push_back(num);
     }
 

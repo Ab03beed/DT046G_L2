@@ -2,6 +2,7 @@
 // Created by abdah on 2024-01-27.
 //
 
+#include <algorithm>
 #include "sort.h"
 
 //Worst case Time complexity O(N^2), efficient for data sets that are already substantially sorted
@@ -31,41 +32,95 @@ void sort::selection(std::vector<int>& vec, size_t loopCount) {
         for (int j = (i+1); j < vec.size(); ++j) {
             if(vec[j] < vec[minIndexJ]){ //Change the index of the min value if founded.
                 minIndexJ = j;
-                continue;
             }
         }
         if(minIndexJ != i) std::swap(vec[minIndexJ], vec[i]); //Swapping the values.
     }
 }
 
+void sort::quickSortRP(std::vector<int> &vec, int firstIdx, int lastIdx)
+{
+    if(firstIdx<lastIdx)
+    {
+        // pi is the partition return index of pivot
+        int pi = partitionRP(vec, firstIdx, lastIdx);
 
-void sort::quickSortRpivot(std::vector<int> &vec, size_t startIndex, size_t endIndex){
+        //Recursion Call
+        //smaller element than pivot goes left and
+        //higher element goes right
+        quickSortRP(vec,firstIdx,pi-1);
+        quickSortRP(vec,pi+1,lastIdx);
+    }
+}
 
-
+int sort::partitionRP(std::vector<int> &vec, int firstIdx, int lastIdx){
     //Partition step
-    int pivot = vec[endIndex];
-    std::cout << "pivot: " << pivot << '\n';
+    int pivot = vec[lastIdx];
+    //Index of smaller element and Indicate
+    //the right position of pivot found so far
+    int i=(firstIdx-1);
 
-    int i = startIndex;
-
-    for (int j = i; j < endIndex-1; ++j) {
-        if(vec[j] <= pivot){
-            std::swap(vec[i], vec[j]);
+    for(int j = firstIdx; j < lastIdx; j++)
+    {
+        //If current element is smaller than the pivot
+        if(vec[j]<pivot)
+        {
+            //Increment index of smaller element
             i++;
+            std::swap(vec[i],vec[j]);
         }
     }
-    std::swap(vec[i], vec[endIndex]);
-
-
-    for (int e: vec) {
-            std::cout << e << ' ';
-    }
-
-
+    std::swap(vec[i+1],vec[lastIdx]);
+    return (i+1);
 }
 
 
+void sort::quicksortMOT(std::vector<int> &vec, int firstIdx, int lastIdx) {
+    if (firstIdx >= lastIdx)
+        return;
 
+    // Välj pivot som medianen av vänster, mitten och höger element
+    int pivot = MOT(vec, firstIdx, lastIdx);
+    // Partitionera enligt Hoares metod
+    int new_pivot = partitionMOT(vec, firstIdx, lastIdx, pivot);
+    // Rekursivt sortera vänster och höger del av partitionen
+    quicksortMOT(vec, firstIdx, new_pivot - 1);
+    quicksortMOT(vec, new_pivot, lastIdx);
+}
+
+int sort::MOT(std::vector<int> &vec, int firstIdx, int lastIdx) {
+    int mid = firstIdx + (lastIdx - firstIdx) / 2;
+    if (vec[firstIdx] > vec[mid])
+        std::swap(vec[firstIdx], vec[mid]);
+    if (vec[mid] > vec[lastIdx])
+        std::swap(vec[mid], vec[lastIdx]);
+    if (vec[firstIdx] > vec[mid])
+        std::swap(vec[firstIdx], vec[mid]);
+    return vec[mid];
+}
+
+int sort::partitionMOT(std::vector<int> &vec, int firstIdx, int lastIdx, int pivot) {
+    //int i = left;
+    //int j = right;
+    while (firstIdx <= lastIdx) {
+        while (vec[firstIdx] < pivot) {
+            firstIdx++;
+        }
+        while (vec[lastIdx] > pivot) {
+            lastIdx--;
+        }
+        if (firstIdx <= lastIdx) {
+            std::swap(vec[firstIdx], vec[lastIdx]);
+            firstIdx++;
+            lastIdx--;
+        }
+    }
+    return firstIdx;
+}
+
+double sort::standardSort(std::vector<int> &vec) {
+    std::sort(vec.begin(),vec.end());
+}
 
 
 bool sort::isSorted(std::vector<int>& vec){

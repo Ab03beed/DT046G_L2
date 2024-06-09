@@ -13,11 +13,18 @@
 class sort {
 public:
     void insertion(std::vector<int> &vec, size_t loopCount);
+
     void selection(std::vector<int> &vec, size_t loopCount);
-    void quickSortRpivot(std::vector<int> &vec, size_t start, size_t end);
 
+    int partitionRP(std::vector<int> &vec, int low, int high);
+    void quickSortRP(std::vector<int> &vec, int low, int high);
 
+    int MOT(std::vector<int> &vec, int low, int high);
+    void quicksortMOT(std::vector<int> &vec, int left, int right);
+    int partitionMOT(std::vector<int> &vec, int left, int right, int pivot);
+    double standardSort(std::vector<int> &vec);
     bool isSorted(std::vector<int> &vec);
+
 
 private:
     std::vector<int> generate;
